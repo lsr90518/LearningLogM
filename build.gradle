@@ -1,0 +1,35 @@
+apply plugin: 'war'
+apply plugin: 'jetty'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+        resources {
+            srcDir 'src'
+        }
+    }
+}
+webAppDirName = "WebContent"
+
+repositories{
+	flatDir {dirs "WebContent/WEB-INF/lib"}
+	mavenCentral()
+}
+
+dependencies{
+	compile fileTree(dir: 'WebContent/WEB-INF/lib', include: '*.jar')
+	compile 'javax.servlet:javax.servlet-api:3.0.1'
+}
+
+task listJars << {
+    configurations.compile.each { File file -> println file.name }
+}
+
+war{
+	from 'WebContent'
+	webInf {from 'WebContent/WEB-INF'}
+	classpath fileTree('WebContent/WEB-INF/lib')
+	webXml = file('WebContent/WEB-INF/web.xml')
+}

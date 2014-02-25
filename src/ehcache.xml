@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="ehcache.xsd" 
+    updateCheck="true" monitoring="autodetect" name="springCache">
+    
+    <defaultCache
+            maxElementsInMemory="500"
+            maxElementsOnDisk="10000"
+            eternal="true"
+            timeToIdleSeconds="0"
+            timeToLiveSeconds="0"
+            overflowToDisk="true"
+            />
+
+	<cache name="surfdesc"
+            maxElementsInMemory="500"
+            maxElementsOnDisk="10000"
+            eternal="true"
+            timeToIdleSeconds="0"
+            timeToLiveSeconds="0"
+            overflowToDisk="true"/>
+		
+</ehcache>

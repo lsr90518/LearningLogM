@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.ac.tokushima_u.is.ll.dao.UsersDao">
+	
+	<sql id="allColumns">
+            u.id as id,
+            u.pc_email as pcEmail,
+            u.password as password,
+            u.auth as auth,
+            u.enabled as enabled,
+            u.account_not_locked as accountNotLocked,
+            u.activecode as activecode,
+            u.last_login as lastLogin,
+            u.create_time as createTime,
+            u.update_time as updateTime,
+            u.nickname as nickname,
+            u.first_name as firstName,
+            u.last_name as lastName,
+            u.avatar as avatar,
+            u.default_category as defaultCategory,
+            u.receive_weekly_notification as receiveWeeklyNotification,
+            u.user_level as userLevel,
+            u.experience_point as experiencePoint
+	</sql>
+	
+	<sql id="whereFragment">
+       <where>
+            <if test="user.nickname!=null">
+                u.nickname = #{user.nickname}
+            </if>
+            <if test="user.pcEmail!=null">
+                and u.pc_email = #{user.pcEmail}
+            </if>
+            <if test="user.firstName!=null">
+                and u.first_name = #{user.firstName}
+            </if>
+            <if test="user.lastName!=null">
+                and u.last_name = #{user.lastName}
+            </if>
+            and u.account_not_locked = true
+            and u.enabled = true
+       </where>
+	</sql>
+	
+	<select id="findAllUserCount" resultType="long">
+		select
+			count(u.id)
+		from
+			t_users u
+		where
+			u.account_not_locked = true
+			and u.enabled = true
+	</select>
+	
+	<insert id="insert" parameterType="Users">
+		insert into t_users(
+		    id,
+		    pc_email,
+		    password,
+		    auth,
+		    enabled,
+		    account_not_locked,
+		    activecode,
+		    last_login,
+		    create_time,
+		    update_time,
+		    nickname,
+		    first_name,
+		    last_name,
+		    avatar,
+		    default_category,
+		    receive_weekly_notification,
+		    user_level,
+		    experience_point
+		) values (
+		    #{id},
+		    #{pcEmail},
+		    #{password},
+		    #{auth},
+		    #{enabled},
+		    #{accountNotLocked},
+		    #{activecode},
+		    #{lastLogin},
+		    #{createTime},
+		    #{updateTime},
+		    #{nickname},
+		    #{firstName},
+		    #{lastName},
+		    #{avatar},
+		    #{defaultCategory},
+		    #{receiveWeeklyNotification},
+		    #{userLevel},
+		    #{experiencePoint}
+		)
+	</insert>
+	
+	<update id="update" parameterType="Users">
+	   update
+	       t_users
+       <set>
+            <if test="pcEmail!=null">pc_email=#{pcEmail},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="auth!=null">auth=#{auth},</if>
+            <if test="enabled!=null">enabled=#{enabled},</if>
+            <if test="accountNotLocked!=null">account_not_locked=#{accountNotLocked},</if>
+            <if test="activecode!=null">activecode=#{activecode},</if>
+            <if test="lastLogin!=null">last_login=#{lastLogin},</if>
+            <if test="updateTime!=null">update_time=#{updateTime},</if>
+            <if test="nickname!=null">nickname=#{nickname},</if>
+            <if test="firstName!=null">first_name=#{firstName}, </if>
+            <if test="lastName!=null">last_name=#{lastName},</if>
+            <if test="avatar!=null">avatar=#{avatar},</if>
+            <if test="defaultCategory!=null">default_category=#{defaultCategory},</if>
+            <if test="receiveWeeklyNotification!=null">receive_weekly_notification=#{receiveWeeklyNotification},</if>
+            <if test="userLevel!=null">user_level=#{userLevel},</if>
+            <if test="experiencePoint!=null">experience_point=#{experiencePoint},</if>
+       </set>
+       where
+            id=#{id}
+	</update>
+	
+	<select id="count" resultType="long">
+		select
+			count(*)
+		from
+			t_users
+	</select>
+	
+	<select id="findById" parameterType="string" resultType="Users">
+	   select
+        <include refid="allColumns"/>
+       from
+            t_users u
+       where
+       		u.id = #{id}
+	</select>
+	
+	<select id="findAllUsers" resultType="Users">
+	   select
+        <include refid="allColumns"/>
+       from
+            t_users u
+       where
+            u.account_not_locked = true
+            and u.enabled = true
+       order by u.pc_email
+	</select>
+	
+	<select id="findByEmail" resultType="Users">
+	   select
+	     <include refid="allColumns"/>
+	   from
+	       t_users u
+       where
+           u.pc_email=#{email}
+	</select>
+	
+	<select id="findByActiveCode" parameterType="string" resultType="Users">
+	   select
+	       <include refid="allColumns"/>
+	   from
+	       t_users u
+       where
+           u.activecode=#{activecode}
+	</select>
+	
+	<select id="findPage" parameterType="map" resultType="Users">
+	   select
+            <include refid="allColumns"/>
+       from
+            t_users u
+       <include refid="whereFragment"/>
+       <if test="pageRequest.sort!=null">
+           order by 
+           <foreach collection="pageRequest.sort" index="index" item="order" open="" separator="," close="">
+               u.${order.property} ${order.direction}
+           </foreach>
+       </if>
+       <if test="pageRequest!=null">
+            <if test="pageRequest.pageSize!=null">
+                limit #{pageRequest.pageSize}
+            </if>
+            <if test="pageRequest.offset!=null">
+                offset #{pageRequest.offset}
+            </if>
+       </if>
+	</select>
+	
+	<select id="countPage">
+	   select count(*)
+	   from
+	       t_users u
+        <include refid="whereFragment"/>
+	</select>
+	
+	<select id="searchList" parameterType="Users" resultType="Users">
+	   select
+	       <include refid="allColumns"/>
+	   from
+	       t_users u
+	   <where>
+	       <if test="pcEmail!=null">and u.pc_email like #{pcEmail}</if>
+	   </where>
+	</select>
+	
+	<select id="findUsersHaveItemsFrom" parameterType="date" resultType="Users">
+		select
+			<include refid="allColumns"/>
+		from
+			t_users u
+				right join t_item i
+					on u.id = i.author_id
+		where
+			i.create_time > #{startDate}
+		group by
+			u.id
+		having
+			count(i.id) > 0
+	</select>
+</mapper>

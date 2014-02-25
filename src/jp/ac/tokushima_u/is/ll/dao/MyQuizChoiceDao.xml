@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.ac.tokushima_u.is.ll.dao.MyQuizChoiceDao">
+
+	<select id="findListByMyQuizId" parameterType="string" resultType="MyQuizChoice">
+		select
+			mqc.id,
+			mqc.content,
+			mqc.note,
+			mqc.number,
+			mqc.item_id as itemId,
+			mqc.myquiz_id as myquizId
+		from
+			t_myquiz_choice mqc
+		where
+			mqc.myquiz_id = #{myQuizId}
+	</select>
+	
+	<insert id="insert" parameterType="MyQuizChoice">
+		insert into	t_myquiz_choice(
+			id,
+			content,
+			note,
+			number,
+			item_id,
+			myquiz_id
+		)values(
+			#{id},
+			#{content},
+			#{note},
+			#{number},
+			#{itemId},
+			#{myquizId}
+		)
+	</insert>
+</mapper>

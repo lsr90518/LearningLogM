@@ -1,0 +1,17 @@
+package serialize;
+
+option java_package = "jp.ac.tokushima_u.is.ll.util.imgproc";
+option java_outer_classname="MatModelProtos";
+
+message MatModel{
+  message MatData{
+    required int32 row = 1;
+	required int32 col = 2;
+	repeated double data = 3;
+  }
+  
+  required int32 cols = 1;
+  required int32 rows = 2;
+  required int32 type = 3;
+  repeated MatData datas = 4;
+}
