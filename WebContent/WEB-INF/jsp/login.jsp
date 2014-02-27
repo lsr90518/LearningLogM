@@ -2,28 +2,15 @@
 <%@include file="include/taglibs.jsp" %>
 <!doctype html>
 <html>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <c:import url="include/head.jsp">
         <c:param name="title" value="Login" />
         <c:param name="content">
-    		<link rel="stylesheet" type="text/css" href="${ctx}/js/bootstrap/css/bootstrap.min.css" />
-        	<script type="text/javascript" src="${ctx}/js/bootstrap/js/bootstrap.min.js"></script>
-        	<style type="text/css">
-        	#abstract{
-        		float: left;
-        		width: 420px;
-        		padding: 5px;
-        		font-size: 16px;
-        		word-wrap:break-word;
-        		word-break:normal;
-        		color: black; 
-        		z-index:-300;
-        		text-align:justify; 
-        	}
-        	.loginForm {
-        		margin: 20px auto; 
-        		float: left;
-        	}
-        	</style>
+    		<!-- <link rel="stylesheet" type="text/css" href="${ctx}/js/bootstrap/css/bootstrap.min.css" />
+        	<script type="text/javascript" src="${ctx}/js/bootstrap/js/bootstrap.min.js"></script> -->
+        	
+        	
         	
         	<script type="text/javascript">
         	$(function(){
@@ -50,25 +37,66 @@
         	</script>
         </c:param>
     </c:import>
-    <body id="page_member_login">
-        <div id="Body">
-            <div id="Container">
-
-                <div id="Header">
-                    <div id="HeaderContainer">
-                        <h1><a href="http://ll.is.tokushima-u.ac.jp">Learning Log</a></h1>
-                        <div id="globalNav">
-                            <ul>
-                            </ul>
-                        </div><!-- globalNav -->
-                        <div id="topBanner">
-                        </div>
-                    </div><!-- HeaderContainer -->
-                </div><!-- Header -->
-                <div id="Contents">
-                    <div id="ContentsContainer">
-                        <div id="localNav">
-                        </div><!-- localNav -->
+    <style type="text/css">
+    	body{
+    	background-color: rgb(250,185,55);
+    	}
+    	.head-text{
+    		text-align: center;
+    	}
+    	.head-text-wrap{
+    		margin-top:50px;
+    	}
+    	
+    	.login-form-wrap{
+    		margin-top:40px;
+    	}
+    	.login-form-wrap input{
+    		margin-bottom:7px;
+    		float:left;
+    	}
+    </style>
+    <body>
+	    <div class="container-fluid">
+	      	<div class="head-text-wrap">
+			  <div class="row head-text">
+				<div class="col-xs-12 col-md-12"><h2>Learninglog</h2></div>
+			  </div>
+			  <div class="row head-text">
+				<div class="col-xs-12 col-md-12">Log your learning log, Learn your learning log.</div>
+			  </div>
+		  	</div>
+		  	
+		  	<div class="login-form-wrap">
+		  		<form action="<c:url value="/signin" />" method="post">
+		  			<!-- head text -->
+				  <div class="row head-text">
+					<div class="col-xs-12 col-md-12">
+						<input type="email" name="email" value="${email}" class="form-control" id="email" placeholder="Username">
+					</div>
+				  </div>
+				  	<!-- login form-->
+				  <div class="row head-text">
+					<div class="col-xs-12 col-md-12">
+						<input type="password" name="password" class="form-control" id="password" placeholder="Password">
+					</div>
+				  </div>
+				  	<!-- login button -->
+				  <div class="row head-text">
+					<div class="col-xs-12 col-md-12">
+						<input type="checkbox" name="rememberMe" checked style="display:none" />
+						<input type="submit" class="btn btn-block" value="Login" style="background-color:rgb(22, 160, 133);color:white" />
+						<input type="button" class="btn btn-block" value="Sign in" style="background-color: rgb(41, 128, 185);color:white" />
+					</div>
+				  </div>
+				
+				</form>
+			</div>
+		</div>
+		
+		
+    			<!-- <div class="container">
+                    <div class="row">
                         <div id="LayoutA" class="Layout">
                             <div id="Top">
                                 <div id="MailAddressLogin" class="loginForm">
@@ -107,26 +135,15 @@
                                     	</a>
                                     </div>
                                 </div>
-                                <div id="abstract">
-                                	Learning-Log means your record of what you have learned and this system
-									makes it easy to remember new vocabularies for foreign language learners
-									. It allows you to log, share and reuse your
-									learning log with others. Also, you can receive personalized quizzes and
-									answers for your questions, and navigate surrounding learning log
-									supported by augmented reality view. Learning-Log system can be used on
-									Android mobile phones or/and on PC using any web browser.
-                                </div>
+                                
                             </div><!-- Top -->
-                            <div id="Center">
-                            </div><!-- Center -->
-                        </div><!-- Layout -->
-                        <div id="sideBanner" style="position:relative;left:-40px;">
+                            <!--<div id="Center">
+                            <!--</div><!-- Center -->
+                        <!--</div><!-- Layout -->
+                        <!--<div id="sideBanner" style="position:relative;left:-40px;">
                         	<img src="<c:url value="/images/llcollect.jpg"/>" style="width:300px;"/>
-                        </div><!-- sideBanner -->
-                    </div><!-- ContentsContainer -->
-                </div><!-- Contents -->
-                <c:import url="include/footer.jsp" />
-            </div><!-- Container -->
-        </div><!-- Body -->
+                        </div> sideBanner -->
+                    <!--</div><!-- ContentsContainer -->
+            <!--/div><!-- Container -->
     </body>
 </html>

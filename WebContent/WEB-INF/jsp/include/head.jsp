@@ -8,9 +8,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
     <title><c:if test="${!empty param.title}">${param.title} - </c:if>Learning Log</title>
     <link rel="icon" type="image/png" href="<c:url value="/images/favicon.png" />">
-    <link rel="stylesheet" type="text/css" media="screen" href="${ctx}/css/main.css" />
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="${ctx}/css/main.css" /> -->
     <link rel="stylesheet" type="text/css" media="screen" href="${ctx}/css/learninglog/jquery-ui.css" />
     <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
     <script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/jquery.validate.min.js"></script>
